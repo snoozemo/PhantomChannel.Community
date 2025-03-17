@@ -1,0 +1,14 @@
+{
+  "id": "822d414d-2541-40be-881b-303d8f265c45",
+  "template": "empty",
+  "modules": {
+    "PhantomChannel.Community": {
+      "path": "PhantomChannel.Community.abpmdl"
+    }
+  },
+  "runProfiles": {
+    "Default": {
+      "path": "etc/abp-studio/run-profiles/Default.abprun.json"
+    }
+  }
+}
