@@ -84,96 +84,48 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         var configurationSection = _configuration.GetSection("OpenIddict:Applications");
 
 
+        await CreateApplicationBatchAsync(configurationSection, commonScopes);
 
 
 
-
-        // PhantomChannel_Community_Swagger
-        var swaggerClientId = configurationSection["PhantomChannel_Community_Swagger:ClientId"];
-        if (!swaggerClientId.IsNullOrWhiteSpace())
+    }
+    /// <summary>
+    /// 初始化应用列表
+    /// </summary>
+    /// <param name="configurationSection"></param>
+    /// <param name="commonScopes"></param>
+    /// <returns></returns>
+    private async Task CreateApplicationBatchAsync(IConfigurationSection configurationSection, List<string> commonScopes)
+    {
+        // 获取 configuration 的 所有key
+        var keys = configurationSection.GetChildren().Select(x => x.Key).ToList();
+        foreach (var key in keys)
         {
-            var swaggerRootUrl = configurationSection["PhantomChannel_Community_Swagger:RootUrl"]?.TrimEnd('/');
-
-            await CreateApplicationAsync(
-                name: swaggerClientId!,
-                type: OpenIddictConstants.ClientTypes.Public,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Swagger Application",
-                secret: null,
-                grantTypes: new List<string> { OpenIddictConstants.GrantTypes.AuthorizationCode, },
-                scopes: commonScopes,
-                redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
-                clientUri: swaggerRootUrl
+            var clientId = configurationSection[$"{key}:ClientId"];
+            if (!clientId.IsNullOrWhiteSpace())
+            {
+                Console.WriteLine(key);
+                var rootUrl = configurationSection[$"{key}:RootUrl"]?.TrimEnd('/');
+                var redirectUri = configurationSection[$"{key}:RedirectUris"] ?? "/login";
+                var rostLogoutRedirectUri = configurationSection[$"{key}:PostLogoutRedirectUri"] ?? "/logout";
+                await CreateApplicationAsync(
+                    name: clientId!,
+                    type: OpenIddictConstants.ClientTypes.Public,
+                    consentType: OpenIddictConstants.ConsentTypes.Implicit,
+                    displayName: $"{key} Application",
+                    secret: null,
+                    grantTypes: [
+                        OpenIddictConstants.GrantTypes.AuthorizationCode,
+                        OpenIddictConstants.GrantTypes.RefreshToken,
+                    ],
+                    scopes: commonScopes,
+                    redirectUri: $"{rootUrl}{redirectUri}",
+                    postLogoutRedirectUri: $"{rootUrl}/{rostLogoutRedirectUri}",
+                    clientUri: rootUrl
             );
-        }
-        // PhantomChannel_Community_Management
-        var managementClientId = configurationSection["PhantomChannel_Community_Management:ClientId"];
-        if (!managementClientId.IsNullOrWhiteSpace())
-        {
-            var managementRootUrl = configurationSection["PhantomChannel_Community_Management:RootUrl"]?.TrimEnd('/');
-
-            await CreateApplicationAsync(
-                name: managementClientId!,
-                type: OpenIddictConstants.ClientTypes.Public,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Management Application",
-                secret: null,
-                grantTypes: [
-                    OpenIddictConstants.GrantTypes.AuthorizationCode,
-                    OpenIddictConstants.GrantTypes.RefreshToken,
-                ],
-                scopes: commonScopes,
-                redirectUri: $"{managementRootUrl}/authentication/login-callback",
-                postLogoutRedirectUri: $"{managementRootUrl}/authentication/logout-callback",
-                clientUri: managementRootUrl
-            );
-        }
-        // PhantomChannel_Community_Forums
-        var forumsClientId = configurationSection["PhantomChannel_Community_Forums:ClientId"];
-        if (!forumsClientId.IsNullOrWhiteSpace())
-        {
-            var forumsRootUrl = configurationSection["PhantomChannel_Community_Forums:RootUrl"]?.TrimEnd('/');
-
-            await CreateApplicationAsync(
-                name: forumsClientId!,
-                type: OpenIddictConstants.ClientTypes.Public,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Forums Application",
-                secret: null,
-                grantTypes: [
-                    OpenIddictConstants.GrantTypes.AuthorizationCode,
-                    OpenIddictConstants.GrantTypes.RefreshToken,
-                ],
-                scopes: commonScopes,
-                redirectUri: $"{forumsRootUrl}/login",
-                postLogoutRedirectUri: $"{forumsRootUrl}/logout",
-                clientUri: forumsRootUrl
-            );
-        }
-        // PhantomChannel_Community_Temporary
-        var temporaryClientId = configurationSection["PhantomChannel_Community_Temporary:ClientId"];
-        if (!temporaryClientId.IsNullOrWhiteSpace())
-        {
-            var temporaryRootUrl = configurationSection["PhantomChannel_Community_Temporary:RootUrl"]?.TrimEnd('/');
-
-            await CreateApplicationAsync(
-                name: forumsClientId!,
-                type: OpenIddictConstants.ClientTypes.Public,
-                consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Temporary Application",
-                secret: null,
-                grantTypes: [
-                    OpenIddictConstants.GrantTypes.AuthorizationCode,
-                    OpenIddictConstants.GrantTypes.RefreshToken,
-                ],
-                scopes: commonScopes,
-                redirectUri: $"{temporaryRootUrl}/login",
-                postLogoutRedirectUri: $"{temporaryRootUrl}/logout",
-                clientUri: temporaryRootUrl
-            );
+            }
         }
     }
-
     private async Task CreateApplicationAsync(
         [NotNull] string name,
         [NotNull] string type,

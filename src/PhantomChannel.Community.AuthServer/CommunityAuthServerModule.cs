@@ -16,8 +16,6 @@ using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.Account.Web;
-using Volo.Abp.AspNetCore.Mvc.UI;
-using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
@@ -34,9 +32,10 @@ using Volo.Abp.Modularity;
 using Volo.Abp.OpenIddict;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.UI.Navigation.Urls;
-using Volo.Abp.UI;
 using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.Account.Localization;
+using Volo.Abp.Swashbuckle;
+using Microsoft.OpenApi.Models;
 
 namespace PhantomChannel.Community;
 
@@ -49,7 +48,8 @@ namespace PhantomChannel.Community;
     typeof(AbpAccountHttpApiModule),
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(CommunityEntityFrameworkCoreModule),
-    typeof(AbpAspNetCoreSerilogModule)
+    typeof(AbpAspNetCoreSerilogModule),
+    typeof(AbpSwashbuckleModule)
     )]
 public class CommunityAuthServerModule : AbpModule
 {
@@ -77,7 +77,6 @@ public class CommunityAuthServerModule : AbpModule
 
             PreConfigure<OpenIddictServerBuilder>(CommunityBuilder =>
             {
-                // CommunityBuilder.AddProductionEncryptionAndSigningCertificate("openiddict.pfx", "733359e3-c9b1-463d-9b68-8651148c1137");
                 var pwd = configuration["App:OpenIddictPassword"] ?? throw new Exception("Couldn't Find OpenIddict Password");
                 CommunityBuilder.AddProductionEncryptionAndSigningCertificate("openiddict.pfx", pwd);
             });
@@ -130,8 +129,8 @@ public class CommunityAuthServerModule : AbpModule
             options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
             options.RedirectAllowedUrls.AddRange(configuration["App:RedirectAllowedUrls"]?.Split(',') ?? Array.Empty<string>());
 
-            options.Applications["Angular"].RootUrl = configuration["App:ClientUrl"];
-            options.Applications["Angular"].Urls[AccountUrlNames.PasswordReset] = "account/reset-password";
+            // options.Applications["Angular"].RootUrl = configuration["App:ClientUrl"];
+            // options.Applications["Angular"].Urls[AccountUrlNames.PasswordReset] = "account/reset-password";
         });
 
         Configure<AbpBackgroundJobOptions>(options =>
@@ -166,7 +165,7 @@ public class CommunityAuthServerModule : AbpModule
                         configuration["App:CorsOrigins"]?
                             .Split(",", StringSplitOptions.RemoveEmptyEntries)
                             .Select(o => o.RemovePostFix("/"))
-                            .ToArray() ?? Array.Empty<string>()
+                            .ToArray() ?? []
                     )
                     .WithAbpExposedHeaders()
                     .SetIsOriginAllowedToAllowWildcardSubdomains()
@@ -175,12 +174,23 @@ public class CommunityAuthServerModule : AbpModule
                     .AllowCredentials();
             });
         });
-
         context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
         {
             options.IsDynamicClaimsEnabled = true;
         });
+
+        context.Services.AddAbpSwaggerGen(
+             options =>
+             {
+                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "PhantomChannel.Community.AuthServer API", Version = "v1" });
+                 options.DocInclusionPredicate((docName, description) => true);
+                 options.CustomSchemaIds(type => type.FullName);
+             }
+         );
+
     }
+
+
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
     {
@@ -210,11 +220,18 @@ public class CommunityAuthServerModule : AbpModule
         {
             app.UseMultiTenancy();
         }
+        app.UseSwagger();
+        app.UseAbpSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Server API");
 
+            var configuration = context.GetConfiguration();
+            options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
+            options.OAuthScopes("Community");
+        });
         app.UseUnitOfWork();
         app.UseDynamicClaims();
         app.UseAuthorization();
-
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();

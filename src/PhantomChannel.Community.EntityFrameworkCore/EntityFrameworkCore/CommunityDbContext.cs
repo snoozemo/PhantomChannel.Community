@@ -20,8 +20,8 @@ namespace PhantomChannel.Community.EntityFrameworkCore;
 [ReplaceDbContext(typeof(IIdentityDbContext))]
 [ReplaceDbContext(typeof(ITenantManagementDbContext))]
 [ConnectionStringName("Default")]
-public class CommunityDbContext :
-    AbpDbContext<CommunityDbContext>,
+public class CommunityDbContext(DbContextOptions<CommunityDbContext> options) :
+    AbpDbContext<CommunityDbContext>(options),
     IIdentityDbContext,
     ITenantManagementDbContext
 {
@@ -55,12 +55,6 @@ public class CommunityDbContext :
 
     #endregion
 
-    public CommunityDbContext(DbContextOptions<CommunityDbContext> options)
-        : base(options)
-    {
-
-    }
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -76,14 +70,16 @@ public class CommunityDbContext :
         builder.ConfigureFeatureManagement();
         builder.ConfigureTenantManagement();
 
-        /* Configure your own tables/entities inside here */
         builder.Entity<Book>(b =>
-               {
-                   b.ToTable(CommunityConsts.DbTablePrefix + "Books",
-                       CommunityConsts.DbSchema);
-                   b.ConfigureByConvention(); //auto configure for the base class props
-                   b.Property(x => x.Name).IsRequired().HasMaxLength(128);
-               });
+                      {
+                          b.ToTable(CommunityConsts.DbTablePrefix + "Books",
+                              CommunityConsts.DbSchema);
+                          b.ConfigureByConvention(); //auto configure for the base class props
+                          b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+                      });
+
+        /* Configure your own tables/entities inside here */
+
         //builder.Entity<YourEntity>(b =>
         //{
         //    b.ToTable(CommunityConsts.DbTablePrefix + "YourEntities", CommunityConsts.DbSchema);

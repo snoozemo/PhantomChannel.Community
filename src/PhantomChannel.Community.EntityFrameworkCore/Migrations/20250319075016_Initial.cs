@@ -397,6 +397,8 @@ namespace PhantomChannel.Community.Migrations
                     ShouldChangePasswordOnNextLogin = table.Column<bool>(type: "boolean", nullable: false),
                     EntityVersion = table.Column<int>(type: "integer", nullable: false),
                     LastPasswordChangeTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    Avatar = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Introduction = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -413,7 +415,7 @@ namespace PhantomChannel.Community.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppBooks",
+                name: "CommunityBooks",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -421,6 +423,7 @@ namespace PhantomChannel.Community.Migrations
                     Type = table.Column<int>(type: "integer", nullable: false),
                     PublishDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
+                    AuthorName2 = table.Column<string>(type: "text", nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -430,7 +433,7 @@ namespace PhantomChannel.Community.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppBooks", x => x.Id);
+                    table.PrimaryKey("PK_CommunityBooks", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -1131,7 +1134,7 @@ namespace PhantomChannel.Community.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AppBooks");
+                name: "CommunityBooks");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");

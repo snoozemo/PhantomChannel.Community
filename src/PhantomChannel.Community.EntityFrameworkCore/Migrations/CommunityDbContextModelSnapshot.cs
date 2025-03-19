@@ -29,6 +29,9 @@ namespace PhantomChannel.Community.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("AuthorName2")
+                        .HasColumnType("text");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .IsRequired()
@@ -73,7 +76,7 @@ namespace PhantomChannel.Community.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppBooks", (string)null);
+                    b.ToTable("CommunityBooks", (string)null);
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -816,6 +819,10 @@ namespace PhantomChannel.Community.Migrations
                         .HasDefaultValue(0)
                         .HasColumnName("AccessFailedCount");
 
+                    b.Property<string>("Avatar")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .IsRequired()
@@ -858,6 +865,10 @@ namespace PhantomChannel.Community.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("ExtraProperties");
+
+                    b.Property<string>("Introduction")
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean")

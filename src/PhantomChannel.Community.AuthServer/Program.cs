@@ -33,6 +33,7 @@ public class Program
             builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();
+
             await builder.AddApplicationAsync<CommunityAuthServerModule>();
             var app = builder.Build();
             await app.InitializeApplicationAsync();

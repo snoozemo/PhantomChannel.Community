@@ -252,15 +252,16 @@ paket-files/
 *.sln.iml
 
 # Server
-src/PhantomChannel.Community.Web/Logs/*
-src/PhantomChannel.Community.Web.Host/Logs/*
-src/PhantomChannel.Community.AuthServer/Logs/*
-src/PhantomChannel.Community.HttpApi.Host/Logs/*
-src/PhantomChannel.Community.HttpApi.HostWithIds/Logs/*
-src/PhantomChannel.Community.DbMigrator/Logs/*
-src/PhantomChannel.Community.Blazor.Server/Logs/*
-src/PhantomChannel.Community.Blazor.Server.Tiered/Logs/*
+# src/PhantomChannel.Community.Web/Logs/*
+# src/PhantomChannel.Community.Web.Host/Logs/*
+# src/PhantomChannel.Community.AuthServer/Logs/*
+# src/PhantomChannel.Community.HttpApi.Host/Logs/*
+# src/PhantomChannel.Community.HttpApi.HostWithIds/Logs/*
+# src/PhantomChannel.Community.DbMigrator/Logs/*
+# src/PhantomChannel.Community.Blazor.Server/Logs/*
+# src/PhantomChannel.Community.Blazor.Server.Tiered/Logs/*
 **/Logs/*
+**/logs.txt
 # Use abp install-libs to restore.
 **/wwwroot/libs/*
 
