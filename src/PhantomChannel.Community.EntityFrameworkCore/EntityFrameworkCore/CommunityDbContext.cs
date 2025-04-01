@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PhantomChannel.Community.Books;
+using PhantomChannel.Community.Comments;
+using PhantomChannel.Community.Posts;
+using PhantomChannel.Community.LikeAndDislikes;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -40,6 +43,9 @@ public class CommunityDbContext(DbContextOptions<CommunityDbContext> options) :
      * uses this DbContext on runtime. Otherwise, it will use its own DbContext class.
      */
     public DbSet<Book> Books { get; set; }
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<LikeAndDislike> LikesAndDislikes { get; set; }
     //Identity
     public DbSet<IdentityUser> Users { get; set; }
     public DbSet<IdentityRole> Roles { get; set; }
@@ -78,6 +84,27 @@ public class CommunityDbContext(DbContextOptions<CommunityDbContext> options) :
                           b.Property(x => x.Name).IsRequired().HasMaxLength(128);
                       });
 
+        builder.Entity<Post>(b =>
+                      {
+                          b.ToTable(CommunityConsts.DbTablePrefix + "Posts",
+                              CommunityConsts.DbSchema);
+                          b.ConfigureByConvention();
+                          b.Property(x => x.Content).IsRequired().HasMaxLength(5120);
+                      });
+        builder.Entity<Comment>(b =>
+                      {
+                          b.ToTable(CommunityConsts.DbTablePrefix + "Comments",
+                              CommunityConsts.DbSchema);
+                          b.ConfigureByConvention();
+                          b.Property(x => x.Content).IsRequired().HasMaxLength(1024);
+                      });
+
+        builder.Entity<LikeAndDislike>(b =>
+                      {
+                          b.ToTable(CommunityConsts.DbTablePrefix + "LikeAndDislike",
+                              CommunityConsts.DbSchema);
+                          b.ConfigureByConvention();
+                      });
         /* Configure your own tables/entities inside here */
 
         //builder.Entity<YourEntity>(b =>

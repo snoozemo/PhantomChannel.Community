@@ -1,7 +1,4 @@
-﻿using PhantomChannel.Community.UserExpansions;
-using Volo.Abp.Identity;
-using Volo.Abp.ObjectExtending;
-using Volo.Abp.Threading;
+﻿using Volo.Abp.Threading;
 
 namespace PhantomChannel.Community.EntityFrameworkCore;
 
@@ -18,19 +15,19 @@ public static class CommunityEfCoreEntityExtensionMappings
         {
 
 
-            ObjectExtensionManager.Instance
-                .MapEfCoreProperty<IdentityUser, string>(
-                    nameof(UserExpansion.Avatar),
-                    (entityBuilder, propertyBuilder) =>
-                    {
-                        propertyBuilder.HasMaxLength(UserExpansionsConsts.MaxAvatarLength);
-                    })
-                .MapEfCoreProperty<IdentityUser, string>(
-                    nameof(UserExpansion.Introduction),
-                    (entityBuilder, propertyBuilder) =>
-                    {
-                        propertyBuilder.HasMaxLength(UserExpansionsConsts.MaxIntroductionLength);
-                    });
+            // ObjectExtensionManager.Instance
+            //     .MapEfCoreProperty<IdentityUser, string>(
+            //         nameof(UserExpansion.Avatar),
+            //         (entityBuilder, propertyBuilder) =>
+            //         {
+            //             propertyBuilder.HasMaxLength(UserExpansionsConsts.MaxAvatarLength);
+            //         })
+            //     .MapEfCoreProperty<IdentityUser, string>(
+            //         nameof(UserExpansion.Introduction),
+            //         (entityBuilder, propertyBuilder) =>
+            //         {
+            //             propertyBuilder.HasMaxLength(UserExpansionsConsts.MaxIntroductionLength);
+            //         });
             /* You can configure extra properties for the
              * entities defined in the modules used by your application.
              *

@@ -2,8 +2,11 @@
   "Culture": "en",
   "Texts": {
     "AppName": "Community",
+
     "Menu:Community": "Book Store",
     "Menu:Books": "Books",
+    "Menu:Home": "Home",
+
     "Actions": "Actions",
     "Close": "Close",
     "Delete": "Delete",
@@ -18,6 +21,7 @@
     "AreYouSureToDelete": "Are you sure you want to delete this item?",
     "BookDeletionConfirmationMessage": "Are you sure to delete the book '{0}'?",
     "SuccessfullyDeleted": "Successfully deleted!",
+
     "Enum:BookType.0": "Undefined",
     "Enum:BookType.1": "Adventure",
     "Enum:BookType.2": "Biography",
@@ -27,13 +31,25 @@
     "Enum:BookType.6": "Science",
     "Enum:BookType.7": "Science fiction",
     "Enum:BookType.8": "Poetry",
-    "Permission:Community": "Book Store",
+
+    "Enum:LikeOrDislikeType.0": "Like",
+    "Enum:LikeOrDislikeType.1": "Dislike",
+    "Enum:TargetType.0": "Post",
+    "Enum:TargetType.1": "Comment",
+
+    "Permission:Community": "Manage system",
     "Permission:Books": "Book Management",
     "Permission:Books.Create": "Creating new books",
     "Permission:Books.Edit": "Editing the books",
     "Permission:Books.Delete": "Deleting the books",
-    "Menu:Home": "Home",
-    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information visit",
+
+    "Permission:Forums": "Post Management",
+    "Permission:Forums.Create": "Creating new posts",
+    "Permission:Forums.Edit": "Editing the posts",
+    "Permission:Forums.Delete": "Deleting the posts",
+
+
+    "LongWelcomeMessage": "Welcome to the application. ",
     "Welcome": "Welcome"
   }
 }

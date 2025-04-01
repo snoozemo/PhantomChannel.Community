@@ -6,6 +6,7 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.BlobStoring.Minio;
 
 namespace PhantomChannel.Community;
 
@@ -17,7 +18,8 @@ namespace PhantomChannel.Community;
     typeof(AbpPermissionManagementApplicationModule),
     typeof(AbpTenantManagementApplicationModule),
     typeof(AbpFeatureManagementApplicationModule),
-    typeof(AbpSettingManagementApplicationModule)
+    typeof(AbpSettingManagementApplicationModule),
+    typeof(AbpBlobStoringMinioModule)
     )]
 public class CommunityApplicationModule : AbpModule
 {
@@ -27,5 +29,7 @@ public class CommunityApplicationModule : AbpModule
         {
             options.AddMaps<CommunityApplicationModule>();
         });
+
     }
+
 }

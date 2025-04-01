@@ -64,7 +64,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
             {
                 Name = "Community",
-                DisplayName = "Server API",
+                DisplayName = "PhantomChannel Community Server API",
                 Resources = { "Community" }
             });
         }
@@ -120,7 +120,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                     ],
                     scopes: commonScopes,
                     redirectUri: $"{rootUrl}{redirectUri}",
-                    postLogoutRedirectUri: $"{rootUrl}/{rostLogoutRedirectUri}",
+                    postLogoutRedirectUri: $"{rootUrl}{rostLogoutRedirectUri}",
                     clientUri: rootUrl
             );
             }

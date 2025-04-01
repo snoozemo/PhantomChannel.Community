@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Blazor.Server",
+            "name": "Management.Client",
             "type": "coreclr",
             "request": "launch",
             "program": "dotnet",
@@ -15,7 +15,7 @@
             "stopAtEntry": false
         },
         {
-            "name": "AuthServer",
+            "name": "AuthServer.Application",
             "type": "coreclr",
             "request": "launch",
             "program": "dotnet",
@@ -41,7 +41,7 @@
             "stopAtEntry": false
         },
         {
-            "name": "DbMigrator",
+            "name": "DbMigrator.Cli",
             "type": "coreclr",
             "request": "launch",
             "program": "dotnet",

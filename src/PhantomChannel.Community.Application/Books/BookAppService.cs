@@ -12,14 +12,9 @@ using System.Linq.Dynamic.Core;
 namespace PhantomChannel.Community.Books;
 
 [Authorize(CommunityPermissions.Books.Default)]
-public class BookAppService : ApplicationService, IBookAppService
+public class BookAppService(IRepository<Book, Guid> repository) : ApplicationService, IBookAppService
 {
-    private readonly IRepository<Book, Guid> _repository;
-
-    public BookAppService(IRepository<Book, Guid> repository)
-    {
-        _repository = repository;
-    }
+    private readonly IRepository<Book, Guid> _repository = repository;
 
     public async Task<BookDto> GetAsync(Guid id)
     {

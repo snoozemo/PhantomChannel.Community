@@ -6,14 +6,9 @@ using Volo.Abp.DependencyInjection;
 namespace PhantomChannel.Community;
 
 [Dependency(ReplaceServices = true)]
-public class CommunityBrandingProvider : DefaultBrandingProvider
+public class CommunityBrandingProvider(IStringLocalizer<CommunityResource> localizer) : DefaultBrandingProvider
 {
-    private IStringLocalizer<CommunityResource> _localizer;
-
-    public CommunityBrandingProvider(IStringLocalizer<CommunityResource> localizer)
-    {
-        _localizer = localizer;
-    }
+    private readonly IStringLocalizer<CommunityResource> _localizer = localizer;
 
     public override string AppName => _localizer["AppName"];
 }
