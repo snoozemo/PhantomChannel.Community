@@ -1,0 +1,109 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.1.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.1.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.1.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.1.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.1.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.1.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.1.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.1.0",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "PhantomChannel.Community.Application": {
+      "path": "src/PhantomChannel.Community.Application/PhantomChannel.Community.Application.abppkg",
+      "folder": "src"
+    },
+    "PhantomChannel.Community.Application.Tests": {
+      "path": "test/PhantomChannel.Community.Application.Tests/PhantomChannel.Community.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "PhantomChannel.Community.Domain.Shared": {
+      "path": "src/PhantomChannel.Community.Domain.Shared/PhantomChannel.Community.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "PhantomChannel.Community.Application.Contracts": {
+      "path": "src/PhantomChannel.Community.Application.Contracts/PhantomChannel.Community.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "PhantomChannel.Community.HttpApi": {
+      "path": "src/PhantomChannel.Community.HttpApi/PhantomChannel.Community.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "PhantomChannel.Community.HttpApi.Client": {
+      "path": "src/PhantomChannel.Community.HttpApi.Client/PhantomChannel.Community.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "PhantomChannel.Community.EntityFrameworkCore.Tests": {
+      "path": "test/PhantomChannel.Community.EntityFrameworkCore.Tests/PhantomChannel.Community.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "PhantomChannel.Community.EntityFrameworkCore": {
+      "path": "src/PhantomChannel.Community.EntityFrameworkCore/PhantomChannel.Community.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "PhantomChannel.Community.TestBase": {
+      "path": "test/PhantomChannel.Community.TestBase/PhantomChannel.Community.TestBase.abppkg",
+      "folder": "test"
+    },
+    "PhantomChannel.Community.Domain.Tests": {
+      "path": "test/PhantomChannel.Community.Domain.Tests/PhantomChannel.Community.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "PhantomChannel.Community.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/PhantomChannel.Community.HttpApi.Client.ConsoleTestApp/PhantomChannel.Community.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "PhantomChannel.Community.DbMigrator": {
+      "path": "src/PhantomChannel.Community.DbMigrator/PhantomChannel.Community.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "PhantomChannel.Community.HttpApi.Host": {
+      "path": "src/PhantomChannel.Community.HttpApi.Host/PhantomChannel.Community.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "PhantomChannel.Community.Blazor": {
+      "path": "src/PhantomChannel.Community.Blazor/PhantomChannel.Community.Blazor.abppkg",
+      "folder": "src"
+    },
+    "PhantomChannel.Community.Blazor.Client": {
+      "path": "src/PhantomChannel.Community.Blazor.Client/PhantomChannel.Community.Blazor.Client.abppkg",
+      "folder": "src"
+    },
+    "PhantomChannel.Community.Domain": {
+      "path": "src/PhantomChannel.Community.Domain/PhantomChannel.Community.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}

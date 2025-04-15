@@ -1,0 +1,25 @@
+﻿{
+  "applications": {
+    "PhantomChannel.Community.HttpApi.Host": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:3250",
+      "path": "../../../src/PhantomChannel.Community.HttpApi.Host/PhantomChannel.Community.HttpApi.Host.csproj",
+      "kubernetesService": ".*-httpapihost$",
+      "healthCheckEndpoint": "/health-status",
+      "healthUiEndpoint": "/health-ui",
+      "execution": {
+        "order": 4
+      }
+    },
+    "PhantomChannel.Community.Blazor": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:3251",
+      "path": "../../../src/PhantomChannel.Community.Blazor/PhantomChannel.Community.Blazor.csproj",
+      "healthCheckEndpoint": "/",
+      "kubernetesService": ".*-blazor$",
+      "execution": {
+        "order": 2
+      }
+    }
+  }
+}

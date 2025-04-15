@@ -1,0 +1,46 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Blazor.Client",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "dotnet",
+            "args": [
+                "watch",
+                "run",
+            ],
+            "cwd": "${workspaceFolder}\\src\\PhantomChannel.Community.Blazor",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "HttpApi.Host",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "dotnet",
+            "args": [
+                "watch",
+                "run",
+            ],
+            "cwd": "${workspaceFolder}\\src\\PhantomChannel.Community.HttpApi.Host",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "DbMigrator.Cli",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "dotnet",
+            "args": [
+                "run",
+            ],
+            "cwd": "${workspaceFolder}\\src\\PhantomChannel.Community.DbMigrator",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "env": {
+                "DOTNET_ENVIRONMENT": "Development"
+            }
+        }
+    ]
+}
